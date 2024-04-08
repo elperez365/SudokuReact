@@ -15,6 +15,14 @@ function App() {
     setSelectedBoard(sudoku);
   };
 
+  const handleReset = () => {
+    setReset(!reset);
+  };
+
+  const getCurrentBoardValues = () => {
+    getBoardValues(boardRef);
+  };
+
   return (
     <>
       <div className=" flex justify-center items-center">
@@ -26,13 +34,13 @@ function App() {
       </div>
       <button
         className="bg-zinc-700 text-white p-2 rounded-md mt-4 w-full"
-        onClick={() => getBoardValues(boardRef)}
+        onClick={() => getCurrentBoardValues()}
       >
         getValues
       </button>
       <button
         className="bg-zinc-700 text-white p-2 rounded-md mt-4 w-full"
-        onClick={() => setReset(!reset)}
+        onClick={() => handleReset()}
       >
         Reset
       </button>
