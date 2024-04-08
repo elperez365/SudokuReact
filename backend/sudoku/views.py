@@ -15,6 +15,18 @@ class SudokuViewset(
     queryset = SudokuResult.objects.all()
     serializer_class = SudokuResultSerializer
 
+    def get_grid_by_pk(self, pk):
+        """
+        Restituisce la griglia di Sudoku con il pk specificato.
+        """
+        try:
+            return SudokuResult.objects.get(pk=pk)
+        except SudokuResult.DoesNotExist:
+            return None
+    
+
+
+
     def retrieve(self, request, pk=None):
         """
         Questo endpoint ritorna i valori di una griglia di sudoku.
@@ -123,6 +135,20 @@ class SudokuViewset(
         
         return Response({'sudoku_grids': sudoku_grids}, status=status.HTTP_200_OK)
 
+
+    @action(detail=False, methods=['get'])
+
+    def get_valid_sudoku_grids(self, request):
+        """
+        Questo endpoint restituisce tutte le griglie di Sudoku valide salvate nel database.
+        """
+        sudoku_results = SudokuResult.objects.filter(is_valid_solution=True).order_by('-created_at')
+        sudoku_grids = [SudokuResultSerializer(result).data for result in sudoku_results]
+        
+        return Response({'sudoku_grids': sudoku_grids}, status=status.HTTP_200_OK)
+
+   
+
     @action(detail=False, methods=['get'])
     def delete_all_sudoku(self, request):
         """
@@ -188,3 +214,32 @@ class SudokuViewset(
                     return False
 
         return True
+    
+    @action(detail=False, methods=['put'])
+    def update_sudoku(self, request):
+        """
+        Questo endpoint aggiorna i valori di una griglia di Sudoku.
+        """
+        pk = request.query_params.get('pk', None)
+        sudoku_grid = request.data.get('sudoku_grid', None)
+
+        if not pk:
+            return Response({'message': 'Il campo pk è obbligatorio.'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        if not sudoku_grid:
+            return Response({'message': 'Il campo sudoku_grid è obbligatorio.'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        if len(sudoku_grid) != 9:
+            return Response({'message': 'La griglia di Sudoku deve avere 9 righe.'}, status=status.HTTP_400_BAD_REQUEST)
+        for row in sudoku_grid:
+            if len(row) != 9:
+                return Response({'message': 'Ogni riga della griglia di Sudoku deve avere 9 colonne.'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        sudoku = self.get_grid_by_pk(pk)
+        if not sudoku:
+            return Response({'message': 'Il Sudoku con il pk specificato non esiste.'}, status=status.HTTP_404_NOT_FOUND)
+        
+        sudoku.sudoku_grid = sudoku_grid
+        sudoku.save()
+        
+        return Response({'message': 'Il Sudoku è stato aggiornato con successo.', 'sudoku_grid': sudoku_grid}, status=status.HTTP_200_OK)
