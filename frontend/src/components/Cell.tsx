@@ -33,7 +33,7 @@ const Cell: React.FC<CellProps> = ({ cell }) => {
   return (
     <input
       id="cell"
-      value={value === 0 ? "" : value}
+      value={value}
       onChange={(e) => setValue(ControlMinMaxValue(e))}
       className="w-10 h-10 text-center border border-gray-400 rounded"
     />
