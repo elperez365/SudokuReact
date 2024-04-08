@@ -20,7 +20,7 @@ function App() {
   };
 
   const getCurrentBoardValues = () => {
-    getBoardValues(boardRef);
+    return getBoardValues(boardRef);
   };
 
   return (
