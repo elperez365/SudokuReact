@@ -87,7 +87,7 @@ Puoi iniziare modificando **src/App.tsx**
 
 **Requisiti minimi:**
 
-- [ ] Creare una griglia 9x9 che permetta l'inserimento di un Sudoku.
+- [x] Creare una griglia 9x9 che permetta l'inserimento di un Sudoku.
 - [ ] Creare un pulsante che chiami l'endpoint dedicato al salvataggio sul DB del Sudoku inserito.
 - [ ] Mostare se il Sudoku inserito è valido o meno.
 - [ ] Creare un pulsante **clear** che resetti la griglia allo stato di partenza

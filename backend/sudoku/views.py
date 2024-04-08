@@ -240,6 +240,11 @@ class SudokuViewset(
             return Response({'message': 'Il Sudoku con il pk specificato non esiste.'}, status=status.HTTP_404_NOT_FOUND)
         
         sudoku.sudoku_grid = sudoku_grid
+        sudoku.is_valid_solution = self.is_valid_sudoku(sudoku_grid)
         sudoku.save()
+        # se è valido o no
+        if not sudoku.is_valid_solution:
+            return Response({'message': 'Il Sudoku è stato aggiornato con successo, la soluzione non è valida.', 'sudoku_grid': sudoku_grid}, status=status.HTTP_200_OK)
+        if sudoku.is_valid_solution:
+            return Response({'message': 'Il Sudoku è stato aggiornato con successo, la soluzione è valida.', 'sudoku_grid': sudoku_grid}, status=status.HTTP_200_OK)
         
-        return Response({'message': 'Il Sudoku è stato aggiornato con successo.', 'sudoku_grid': sudoku_grid}, status=status.HTTP_200_OK)
