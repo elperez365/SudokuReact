@@ -1,34 +1,22 @@
-import { useState } from "react";
-import { Sudoku } from "src/types/Sudoku";
-import { DUMMY_SUDOKU } from "../data/Dummy";
 import Cell from "./Cell";
+import { DUMMY_GRID } from "../data/Dummy";
+import { forwardRef } from "react";
+import { BoardRef } from "src/types/Refs";
 
-export default function Board() {
-  const [sudoku, setSudoku] = useState<Sudoku>(DUMMY_SUDOKU);
-  const grid: number[][] = sudoku.sudoku_grid;
+interface BoardProps {
+  grid?: number[][];
+}
 
-  function handleCellChange(row: number, col: number, value: number) {
-    const newGrid = [...grid];
-    newGrid[row][col] = value;
-    setSudoku((prevSudoku) => ({
-      ...prevSudoku,
-      sudoku_grid: newGrid,
-    }));
-  }
-
+const Board = forwardRef<BoardRef, BoardProps>(({ grid = DUMMY_GRID }, ref) => {
   return (
-    <div className="grid grid-cols-9 gap-1 mt-4">
+    <form ref={ref} className="grid grid-cols-9 gap-1 mt-4">
       {grid.map((row, rowIndex) =>
         row.map((cell, colIndex) => (
-          <Cell
-            key={rowIndex * 9 + colIndex}
-            cell={cell}
-            rowIndex={rowIndex}
-            colIndex={colIndex}
-            handleCellChange={handleCellChange}
-          />
+          <Cell key={rowIndex * 9 + colIndex} cell={cell} />
         ))
       )}
-    </div>
+    </form>
   );
-}
+});
+
+export default Board;

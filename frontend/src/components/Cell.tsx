@@ -1,44 +1,44 @@
+import { useState } from "react";
+
 interface CellProps {
   cell: number;
-  rowIndex: number;
-  colIndex: number;
-  handleCellChange: (rowIndex: number, colIndex: number, value: number) => void;
 }
 
-const Cell: React.FC<CellProps> = ({
-  cell,
-  rowIndex,
-  colIndex,
-  handleCellChange,
-}) => {
+const Cell: React.FC<CellProps> = ({ cell }) => {
+  const [value, setValue] = useState<number>(cell);
+
   const ControlMinMaxValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     let controlledValue: number = 0;
-    if (e.target.value === "") {
+    const value = e.target.value;
+
+    if (value === "") {
       controlledValue = 0;
     }
-    if (parseInt(e.target.value) < 0) {
+    if (+value < 0) {
       controlledValue = 0;
     }
-    if (parseInt(e.target.value) > 9) {
-      controlledValue = +e.target.value[0];
+    if (+value > 9) {
+      controlledValue = +value[0];
     }
-    if (parseInt(e.target.value) > 0 && parseInt(e.target.value) < 10) {
-      controlledValue = parseInt(e.target.value);
+    if (+value > 0 && +value < 10) {
+      controlledValue = parseInt(value);
     }
+    if (value.length > 2 && value[0] === "0") {
+      controlledValue = 0;
+    }
+
     return controlledValue;
   };
 
   return (
     <input
-      key={rowIndex * 9 + colIndex}
+      id="cell"
       type="number"
       min="1"
       max="9"
-      value={cell === 0 ? "" : cell}
-      onChange={(e) =>
-        handleCellChange(rowIndex, colIndex, ControlMinMaxValue(e))
-      }
-      className="w-10 h-10 text-center border border-gray-400 rounded"
+      value={value === 0 ? "" : value}
+      onChange={(e) => setValue(ControlMinMaxValue(e))}
+      className="w-12 h-12 text-center border border-gray-400 rounded"
     />
   );
 };
