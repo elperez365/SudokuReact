@@ -13,16 +13,18 @@ const Board: React.FC<BoardProps> = () => {
   const grid = selectedBoard.sudoku_grid;
 
   return (
-    <form ref={boardRef} className="grid grid-cols-9 gap-1 mt-4">
-      {grid.map((row, rowIndex) =>
-        row.map((cell, colIndex) => (
-          <Cell
-            key={rowIndex * 9 + colIndex + cell * 9 + selectedBoard.pk}
-            cell={cell}
-          />
-        ))
-      )}
-    </form>
+    <div className=" flex justify-center items-center">
+      <form ref={boardRef} className="grid grid-cols-9 gap-1 mt-4">
+        {grid.map((row, rowIndex) =>
+          row.map((cell, colIndex) => (
+            <Cell
+              key={rowIndex * 9 + colIndex + cell * 9 + selectedBoard.pk}
+              cell={cell}
+            />
+          ))
+        )}
+      </form>
+    </div>
   );
 };
 
