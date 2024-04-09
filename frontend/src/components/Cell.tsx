@@ -38,7 +38,8 @@ const Cell: React.FC<CellProps> = ({ cell }) => {
       id="cell"
       value={value}
       onChange={(e) => setValue(ControlMinMaxValue(e))}
-      className="w-8 h-8 sm:w-10 sm:h-10 text-center border border-gray-400 rounded"
+      onFocus={(e) => e.target.select()}
+      className="w-8 h-8 sm:w-10 sm:h-10 text-center border border-gray-400 rounded hover:bg-gray-200 focus:outline-none cursor-pointer"
     />
   );
 };
