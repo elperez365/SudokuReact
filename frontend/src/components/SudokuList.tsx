@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Sudoku } from "src/types/Sudoku";
 import { DUMMY_SUDOKU_LIST } from "../data/Dummy";
+import { GameContextType } from "../types/GameContext";
+import { GameContext } from "../context/GameContext";
 
-interface SudokuListProps {
-  onSet: (sudoku: Sudoku) => void;
-}
+interface SudokuListProps {}
 
-const Sudokulist: React.FC<SudokuListProps> = ({ onSet }) => {
+const Sudokulist: React.FC<SudokuListProps> = () => {
+  const { handleSetBoard } = useContext<GameContextType>(GameContext);
+
   const [sudokuList, setSudokuList] = useState<Sudoku[]>(
     DUMMY_SUDOKU_LIST.sudoku_grids
   );
@@ -17,7 +19,7 @@ const Sudokulist: React.FC<SudokuListProps> = ({ onSet }) => {
       <ul>
         {sudokuList.map((sudoku) => (
           <li key={sudoku.pk}>
-            <p onClick={() => onSet(sudoku)}>{sudoku.pk}</p>
+            <p onClick={() => handleSetBoard(sudoku)}>{sudoku.pk}</p>
           </li>
         ))}
       </ul>

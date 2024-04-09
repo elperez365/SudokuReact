@@ -1,24 +1,29 @@
 import Cell from "./Cell";
-import { DUMMY_GRID } from "../data/Dummy";
-import { forwardRef } from "react";
+
+import { useContext } from "react";
+import { GameContext } from "../context/GameContext";
+import { GameContextType } from "../types/GameContext";
 
 interface BoardProps {
   key?: number;
-  grid?: number[][];
 }
 
-const Board = forwardRef<HTMLFormElement, BoardProps>(
-  ({ grid = DUMMY_GRID }, ref) => {
-    return (
-      <form ref={ref} className="grid grid-cols-9 gap-1 mt-4">
-        {grid.map((row, rowIndex) =>
-          row.map((cell, colIndex) => (
-            <Cell key={rowIndex * 9 + colIndex + cell * 9} cell={cell} />
-          ))
-        )}
-      </form>
-    );
-  }
-);
+const Board: React.FC<BoardProps> = () => {
+  const { selectedBoard, boardRef } = useContext<GameContextType>(GameContext);
+  const grid = selectedBoard.sudoku_grid;
+
+  return (
+    <form ref={boardRef} className="grid grid-cols-9 gap-1 mt-4">
+      {grid.map((row, rowIndex) =>
+        row.map((cell, colIndex) => (
+          <Cell
+            key={rowIndex * 9 + colIndex + cell * 9 + selectedBoard.pk}
+            cell={cell}
+          />
+        ))
+      )}
+    </form>
+  );
+};
 
 export default Board;
