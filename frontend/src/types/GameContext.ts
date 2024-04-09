@@ -6,8 +6,10 @@ export interface GameContextType {
   selectedBoard: Sudoku;
   reset: boolean;
   boardRef: BoardRef;
+  updateList: boolean;
   handleSetBoard: (sudoku: Sudoku) => void;
   handleReset: () => void;
+  handleUpdateList: () => void;
   getCurrentBoardValues: () => number[][] | undefined;
 }
 
@@ -15,7 +17,9 @@ export class GameContextData implements GameContextType {
   selectedBoard = DUMMY_SUDOKU;
   reset = false;
   boardRef = { current: null };
+  updateList = false;
   handleSetBoard = () => {};
   handleReset = () => {};
+  handleUpdateList = () => {};
   getCurrentBoardValues = () => [];
 }

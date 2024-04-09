@@ -4,6 +4,8 @@ import { DUMMY_SUDOKU_LIST } from "../data/Dummy";
 import { GameContextType } from "../types/GameContext";
 import { GameContext } from "../context/GameContext";
 import ListItem from "./ListItem";
+import Button from "./ui/Button";
+import Title from "./ui/Title";
 
 interface SudokuListProps {}
 
@@ -15,8 +17,19 @@ const Sudokulist: React.FC<SudokuListProps> = () => {
   );
 
   return (
-    <div className="flex flex-col items-center">
-      <h1 className="text-2xl font-bold  p-2">Sudoku List</h1>
+    <div className="flex flex-col gap-2 items-center">
+      <Title>Sudoku List</Title>
+      <div className="flex gap-2">
+        <Button color="primary" onClick={() => console.log("add Incorrect")}>
+          Add Incorrect
+        </Button>
+        <Button color="tertiary" onClick={() => console.log("add Correct")}>
+          Add Correct
+        </Button>
+        <Button color="secondary" onClick={() => console.log("clear")}>
+          Clear List
+        </Button>
+      </div>
       <ul className="flex flex-col gap-2">
         {sudokuList.map((sudoku) => (
           <ListItem

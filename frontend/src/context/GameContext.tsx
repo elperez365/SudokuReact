@@ -18,6 +18,7 @@ const GameContextProvider: React.FC<GameContextProviderProps> = ({
 }) => {
   const [selectedBoard, setSelectedBoard] = useState<Sudoku>(DUMMY_SUDOKU);
   const [reset, setReset] = useState<boolean>(false);
+  const [updateList, setUpdateList] = useState<boolean>(false);
   const boardRef: BoardRef = useRef<HTMLFormElement>(null);
 
   const handleSetBoard = useCallback((sudoku: Sudoku) => {
@@ -25,8 +26,12 @@ const GameContextProvider: React.FC<GameContextProviderProps> = ({
   }, []);
 
   const handleReset = useCallback(() => {
-    setReset(!reset);
+    setReset((prev) => !prev);
   }, [reset]);
+
+  const handleUpdateList = useCallback(() => {
+    setUpdateList((prev) => !prev);
+  }, [updateList]);
 
   const getCurrentBoardValues = useCallback(() => {
     return getBoardValues(boardRef);
@@ -35,9 +40,11 @@ const GameContextProvider: React.FC<GameContextProviderProps> = ({
   const contextData: GameContextType = {
     selectedBoard,
     reset,
+    updateList,
     boardRef,
     handleSetBoard,
     handleReset,
+    handleUpdateList,
     getCurrentBoardValues,
   };
 
