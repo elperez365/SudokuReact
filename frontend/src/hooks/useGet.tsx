@@ -9,7 +9,7 @@ const useGet = (fetcher: any) => {
   const getMutation = useMutation(fetcher, {
     onSuccess: (data) => {
       setData(data);
-      setLoading(false);
+      setTimeout(() => setLoading(false), 500);
     },
     onError: (error: { message: string }) => {
       setError(error.message);

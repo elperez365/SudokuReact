@@ -13,6 +13,7 @@ const Cell: React.FC<CellProps> = ({ cell, color }) => {
   return (
     <input
       id="cell"
+      type="text"
       value={value}
       onChange={(e) => setValue(ControlMinMaxValue(e))}
       onFocus={(e) => {

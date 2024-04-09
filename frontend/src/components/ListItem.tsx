@@ -13,10 +13,11 @@ const ListItem: React.FC<ListItemProps> = ({ pk, isValid, onSetBoard }) => {
   const { selectedBoard } = useContext<GameContextType>(GameContext);
 
   const bgCondition = isValid ? "bg-green-300" : "bg-red-300";
-  const isSelected = selectedBoard.pk === pk;
+  const isSelected = selectedBoard?.pk === pk;
   const borderCondition = isSelected ? "border-2 border-black" : "";
   return (
     <li
+      id="listItem"
       className={`${bgCondition} ${borderCondition} flex p-2 w-32 justify-around gap-2 hover:bg-amber-500 rounded cursor-pointer `}
       onClick={() => onSetBoard()}
     >

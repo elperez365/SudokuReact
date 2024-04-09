@@ -12,18 +12,18 @@ interface BoardProps {
 
 const Board: React.FC<BoardProps> = () => {
   const { selectedBoard, boardRef } = useContext<GameContextType>(GameContext);
-  const grid = selectedBoard.sudoku_grid;
+  const grid = selectedBoard && selectedBoard.sudoku_grid;
 
   return (
     <div className=" flex flex-col items-center justify-center bg-amber-100 rounded p-4">
-      {!!selectedBoard.pk && <Title>Current PK {selectedBoard.pk}</Title>}
-      {selectedBoard.is_valid_solution ? (
-        <Title>Valid </Title>
+      {!!selectedBoard?.pk && <Title>Current PK {selectedBoard.pk}</Title>}
+      {selectedBoard?.is_valid_solution ? (
+        <Title color="green">Valid </Title>
       ) : (
-        <Title>Not Valid </Title>
+        <Title color="red">Not Valid </Title>
       )}
       <form ref={boardRef} className="grid grid-cols-9 gap-1 mt-4">
-        {grid.map((row, rowIndex) =>
+        {grid?.map((row, rowIndex) =>
           row.map((cell, colIndex) => (
             <Cell
               key={rowIndex * 9 + colIndex + cell * 9 + selectedBoard.pk}

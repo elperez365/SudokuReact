@@ -23,6 +23,7 @@ const GameContextProvider: React.FC<GameContextProviderProps> = ({
 
   const handleSetBoard = useCallback((sudoku: Sudoku) => {
     setSelectedBoard(sudoku);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
   const handleReset = useCallback(() => {

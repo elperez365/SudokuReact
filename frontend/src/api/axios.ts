@@ -35,10 +35,10 @@ export async function getClearSudokuList() {
 }
 
 export async function updateSudoku(pk: number, sudokuGrid: number[][]) {
-  return await axios.put<{ message: string; sudoku_grid: number[][] }>(
-    `${baseURL}/sudoku/update_sudoku/?pk=${pk}`,
-    {
-      sudoku_grid: sudokuGrid,
-    }
-  );
+  return await axios.put<{
+    message: string;
+    sudoku_grid: number[][];
+  }>(`${baseURL}/sudoku/update_sudoku/?pk=${pk}`, {
+    sudoku_grid: sudokuGrid,
+  });
 }

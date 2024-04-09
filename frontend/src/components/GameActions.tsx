@@ -4,13 +4,12 @@ import { GameContextType } from "../types/GameContext";
 import Button from "./ui/Button";
 import Title from "./ui/Title";
 import { getRandomBoard, postSudoku, updateSudoku } from "@api/axios";
-import { Sudoku } from "src/types/Sudoku";
 
 const GameActions = () => {
   const {
     handleReset,
     getCurrentBoardValues,
-    handleSetBoard,
+
     selectedBoard,
     handleUpdateList,
   } = useContext<GameContextType>(GameContext);
@@ -18,26 +17,17 @@ const GameActions = () => {
   const handleGenerateRandomBoard = async () => {
     try {
       const data = await getRandomBoard();
-      const newBoard: number[][] = data.data.sudoku_grid;
-      const newSudokuWithoutPK: Sudoku = {
-        sudoku_grid: newBoard,
-        is_valid_solution: false,
-        pk: 0,
-      };
-      handleSetBoard(newSudokuWithoutPK);
-      handleUpdateList();
+      data && handleUpdateList();
     } catch (error) {
       console.log(error);
     }
   };
 
   const handleSaveBoard = async () => {
+    const currentBoardValues = getCurrentBoardValues() ?? [];
     if (!!selectedBoard.pk) {
       try {
-        const data = await updateSudoku(
-          selectedBoard.pk,
-          getCurrentBoardValues()
-        );
+        const data = await updateSudoku(selectedBoard.pk, currentBoardValues);
         handleUpdateList();
         console.log(data);
       } catch (error) {
@@ -45,7 +35,7 @@ const GameActions = () => {
       }
     } else {
       try {
-        const data = await postSudoku(getCurrentBoardValues());
+        const data = await postSudoku(currentBoardValues);
         handleUpdateList();
         console.log(data);
       } catch (error) {
