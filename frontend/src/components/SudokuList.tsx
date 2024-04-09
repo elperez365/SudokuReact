@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Sudoku } from "src/types/Sudoku";
 import { GameContextType } from "../types/GameContext";
 import { GameContext } from "../context/GameContext";
@@ -9,7 +9,7 @@ import useGet from "../hooks/useGet";
 import ListActions from "./ListActions";
 
 interface SudokuListProps {
-  key: number;
+  key: string;
 }
 
 const Sudokulist: React.FC<SudokuListProps> = () => {
@@ -18,7 +18,6 @@ const Sudokulist: React.FC<SudokuListProps> = () => {
   const { data, loading, error } = useGet(getSudokuList);
 
   const sudokuList = data?.data.sudoku_grids;
-  console.log(sudokuList);
 
   if (loading) {
     return <p>Loading...</p>;
@@ -36,14 +35,16 @@ const Sudokulist: React.FC<SudokuListProps> = () => {
       {sudokuList && !sudokuList.length && <p>No Sudoku available</p>}
 
       <ul className="flex flex-col gap-2">
-        {sudokuList?.map((sudoku: Sudoku) => (
-          <ListItem
-            key={sudoku.pk}
-            pk={sudoku.pk}
-            isValid={sudoku.is_valid_solution}
-            onSetBoard={() => handleSetBoard(sudoku)}
-          />
-        ))}
+        {sudokuList
+          ?.sort((a: Sudoku, b: Sudoku) => b.pk - a.pk)
+          .map((sudoku: Sudoku) => (
+            <ListItem
+              key={sudoku.pk}
+              pk={sudoku.pk}
+              isValid={sudoku.is_valid_solution}
+              onSetBoard={() => handleSetBoard(sudoku)}
+            />
+          ))}
       </ul>
     </div>
   );

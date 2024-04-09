@@ -12,9 +12,9 @@ function App() {
     <div className="flex flex-col gap-5 p-7">
       <GameActions />
 
-      <Board key={reset ? 0 : 1} />
+      <Board key={reset ? "resetBoard" : "!resetBoard"} />
 
-      <Sudokulist key={updateList ? 0 : 1} />
+      <Sudokulist key={updateList ? "updateBoard" : "!updateBoard"} />
     </div>
   );
 }

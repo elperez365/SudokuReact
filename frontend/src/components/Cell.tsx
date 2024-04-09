@@ -14,7 +14,6 @@ const Cell: React.FC<CellProps> = ({ cell, color }) => {
     <input
       id="cell"
       value={value}
-      type="number"
       onChange={(e) => setValue(ControlMinMaxValue(e))}
       onFocus={(e) => {
         e.target.select();

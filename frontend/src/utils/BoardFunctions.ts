@@ -12,7 +12,6 @@ export const getBoardValues = (boardRef: BoardRef) => {
       }
       values.push(row);
     }
-    console.log(values);
 
     return values;
   }

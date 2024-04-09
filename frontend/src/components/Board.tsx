@@ -7,12 +7,13 @@ import { colorCell } from "../utils/ColorGrid";
 import Title from "./ui/Title";
 
 interface BoardProps {
-  key?: number;
+  key?: string;
 }
 
 const Board: React.FC<BoardProps> = () => {
   const { selectedBoard, boardRef } = useContext<GameContextType>(GameContext);
   const grid = selectedBoard.sudoku_grid;
+
   return (
     <div className=" flex flex-col items-center justify-center">
       {!!selectedBoard.pk && <Title>Current PK {selectedBoard.pk}</Title>}

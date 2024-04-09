@@ -22,7 +22,7 @@ export async function getValidSudoku() {
   return await axios.get<Sudoku>(`${baseURL}/sudoku/get_valid_sudoku/`);
 }
 
-export async function getRandomSudoku() {
+export async function getRandomBoard() {
   return await axios.get<Sudoku>(
     `${baseURL}/sudoku/generate_random_sudoku_grid/`
   );
@@ -31,5 +31,14 @@ export async function getRandomSudoku() {
 export async function getClearSudokuList() {
   return await axios.get<{ message: string }>(
     `${baseURL}/sudoku/delete_all_sudoku/`
+  );
+}
+
+export async function updateSudoku(pk: number, sudokuGrid: number[][]) {
+  return await axios.put<{ message: string; sudoku_grid: number[][] }>(
+    `${baseURL}/sudoku/update_sudoku/?pk=${pk}`,
+    {
+      sudoku_grid: sudokuGrid,
+    }
   );
 }
