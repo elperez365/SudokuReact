@@ -13,7 +13,7 @@ export const DUMMY_GRID: number[][] = [
 ];
 
 export const DUMMY_SUDOKU: Sudoku = {
-  pk: 1,
+  pk: 0,
   sudoku_grid: DUMMY_GRID,
   is_valid_solution: false,
 };
