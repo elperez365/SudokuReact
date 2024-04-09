@@ -6,7 +6,7 @@ import { GameContextType } from "./types/GameContext";
 import GameActions from "./components/GameActions";
 
 function App() {
-  const { reset } = useContext<GameContextType>(GameContext);
+  const { reset, updateList } = useContext<GameContextType>(GameContext);
 
   return (
     <div className="flex flex-col gap-5 p-7">
@@ -14,7 +14,7 @@ function App() {
 
       <Board key={reset ? 0 : 1} />
 
-      <Sudokulist />
+      <Sudokulist key={updateList ? 0 : 1} />
     </div>
   );
 }

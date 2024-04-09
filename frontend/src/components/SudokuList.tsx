@@ -1,37 +1,42 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { Sudoku } from "src/types/Sudoku";
-import { DUMMY_SUDOKU_LIST } from "../data/Dummy";
 import { GameContextType } from "../types/GameContext";
 import { GameContext } from "../context/GameContext";
 import ListItem from "./ListItem";
-import Button from "./ui/Button";
 import Title from "./ui/Title";
+import { getSudokuList } from "@api/axios";
+import useGet from "../hooks/useGet";
+import ListActions from "./ListActions";
 
-interface SudokuListProps {}
+interface SudokuListProps {
+  key: number;
+}
 
 const Sudokulist: React.FC<SudokuListProps> = () => {
   const { handleSetBoard } = useContext<GameContextType>(GameContext);
 
-  const [sudokuList, setSudokuList] = useState<Sudoku[]>(
-    DUMMY_SUDOKU_LIST.sudoku_grids
-  );
+  const { data, loading, error } = useGet(getSudokuList);
+
+  const sudokuList = data?.data.sudoku_grids;
+  console.log(sudokuList);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
 
   return (
     <div className="flex flex-col gap-2 items-center">
       <Title>Sudoku List</Title>
-      <div className="flex gap-2">
-        <Button color="primary" onClick={() => console.log("add Incorrect")}>
-          Add Incorrect
-        </Button>
-        <Button color="tertiary" onClick={() => console.log("add Correct")}>
-          Add Correct
-        </Button>
-        <Button color="secondary" onClick={() => console.log("clear")}>
-          Clear List
-        </Button>
-      </div>
+
+      <ListActions />
+
+      {sudokuList && !sudokuList.length && <p>No Sudoku available</p>}
+
       <ul className="flex flex-col gap-2">
-        {sudokuList.map((sudoku) => (
+        {sudokuList?.map((sudoku: Sudoku) => (
           <ListItem
             key={sudoku.pk}
             pk={sudoku.pk}
