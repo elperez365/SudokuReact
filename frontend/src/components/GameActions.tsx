@@ -56,7 +56,7 @@ const GameActions = () => {
         </Button>
 
         <Button color="primary" onClick={() => handleGenerateRandomBoard()}>
-          Generate
+          Generate Random Sudoku
         </Button>
       </div>
     </div>

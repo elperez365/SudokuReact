@@ -28,7 +28,7 @@ const ListActions: React.FC<{}> = () => {
   return (
     <div className="flex gap-2">
       <Button color="tertiary" onClick={() => handleAddValidSudoku()}>
-        Add Valid Sudoku
+        Generate Valid Sudoku
       </Button>
       <Button color="secondary" onClick={() => handleClearList()}>
         Clear List
