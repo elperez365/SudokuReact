@@ -18,6 +18,11 @@ const Sudokulist: React.FC<SudokuListProps> = () => {
   const { data, loading, error } = useGet(getSudokuList);
 
   const sudokuList = data?.data.sudoku_grids;
+  useEffect(() => {
+    if (sudokuList?.length > 0) {
+      handleSetBoard(sudokuList[0]);
+    }
+  }, [sudokuList]);
 
   if (loading) {
     return <p>Loading...</p>;

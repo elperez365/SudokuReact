@@ -25,6 +25,7 @@ const GameActions = () => {
         pk: 0,
       };
       handleSetBoard(newSudokuWithoutPK);
+      handleUpdateList();
     } catch (error) {
       console.log(error);
     }
@@ -62,7 +63,7 @@ const GameActions = () => {
         </Button>
 
         <Button color="tertiary" onClick={() => handleSaveBoard()}>
-          Save
+          Validate & Save
         </Button>
 
         <Button color="primary" onClick={() => handleGenerateRandomBoard()}>
