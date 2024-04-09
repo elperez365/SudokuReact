@@ -3,6 +3,7 @@ import Cell from "./Cell";
 import { useContext } from "react";
 import { GameContext } from "../context/GameContext";
 import { GameContextType } from "../types/GameContext";
+import { colorCell } from "../utils/ColorGrid";
 
 interface BoardProps {
   key?: number;
@@ -11,7 +12,6 @@ interface BoardProps {
 const Board: React.FC<BoardProps> = () => {
   const { selectedBoard, boardRef } = useContext<GameContextType>(GameContext);
   const grid = selectedBoard.sudoku_grid;
-
   return (
     <div className=" flex justify-center items-center">
       <form ref={boardRef} className="grid grid-cols-9 gap-1 mt-4">
@@ -20,6 +20,7 @@ const Board: React.FC<BoardProps> = () => {
             <Cell
               key={rowIndex * 9 + colIndex + cell * 9 + selectedBoard.pk}
               cell={cell}
+              color={colorCell(rowIndex, colIndex)}
             />
           ))
         )}
