@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { ControlMinMaxValue } from "../utils/CellFunctions";
 
 interface CellProps {
@@ -14,6 +14,7 @@ const Cell: React.FC<CellProps> = ({ cell, color }) => {
     <input
       id="cell"
       value={value}
+      type="number"
       onChange={(e) => setValue(ControlMinMaxValue(e))}
       onFocus={(e) => {
         e.target.select();
