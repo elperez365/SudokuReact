@@ -23,7 +23,7 @@ const Cell: React.FC<CellProps> = ({ cell, color }) => {
       onBlur={() => setIsFocused(false)}
       className={` ${
         isFocused ? "bg-orange-300" : color
-      } w-8 h-8 sm:w-10 sm:h-10 text-center border border-gray-400 rounded hover:bg-orange-300 focus:outline-none cursor-pointer`}
+      } w-8 h-8 sm:w-10 sm:h-10 text-center border border-gray-400 rounded hover:bg-orange-300 focus:outline-none cursor-pointer `}
     />
   );
 };
