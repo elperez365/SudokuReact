@@ -9,7 +9,6 @@ const GameActions = () => {
   const {
     handleReset,
     getCurrentBoardValues,
-
     selectedBoard,
     handleUpdateList,
   } = useContext<GameContextType>(GameContext);
