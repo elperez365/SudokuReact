@@ -137,7 +137,6 @@ class SudokuViewset(
 
 
     @action(detail=False, methods=['get'])
-
     def get_valid_sudoku_grids(self, request):
         """
         Questo endpoint restituisce tutte le griglie di Sudoku valide salvate nel database.
@@ -166,7 +165,7 @@ class SudokuViewset(
 
         sudoku_result = SudokuResult.objects.create(
             sudoku_grid=sudoku_grid,
-            is_valid_solution=True,  
+            is_valid_solution=self.is_valid_sudoku(sudoku_grid),  
             created_at=timezone.now()
         )
         sudoku_serializer = SudokuResultSerializer(sudoku_result)
@@ -180,24 +179,27 @@ class SudokuViewset(
         side = 9
         board = [[0 for _ in range(side)] for _ in range(side)]
 
-        for i in range(side):
-            for j in range(side):
-                num = self.find_valid_number(board, i, j)
-                board[i][j] = num
+        self.fill_board(board)
 
         return board
 
-    def find_valid_number(self, board, row, col):
+    def fill_board(self, board):
         """
-        Trova un numero valido per la cella (row, col) nella griglia di Sudoku.
+        Riempie la griglia di Sudoku utilizzando il backtracking.
         """
-        nums = list(range(1, 10))
-        random.shuffle(nums)
-
-        for num in nums:
-            if self.is_valid_number(board, row, col, num):
-                return num
-        return 0
+        for i in range(9):
+            for j in range(9):
+                if board[i][j] == 0:
+                    nums = list(range(1, 10))
+                    random.shuffle(nums)
+                    for num in nums:
+                        if self.is_valid_number(board, i, j, num):
+                            board[i][j] = num
+                            if self.fill_board(board):
+                                return True
+                            board[i][j] = 0
+                    return False
+        return True
 
     def is_valid_number(self, board, row, col, num):
         """
@@ -247,4 +249,6 @@ class SudokuViewset(
             return Response({'message': 'Il Sudoku è stato aggiornato con successo, la soluzione non è valida.', 'sudoku_grid': sudoku_grid}, status=status.HTTP_200_OK)
         if sudoku.is_valid_solution:
             return Response({'message': 'Il Sudoku è stato aggiornato con successo, la soluzione è valida.', 'sudoku_grid': sudoku_grid}, status=status.HTTP_200_OK)
+        
+
         
