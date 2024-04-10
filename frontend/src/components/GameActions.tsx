@@ -4,6 +4,7 @@ import { GameContextType } from "../types/GameContext";
 import Button from "./ui/Button";
 import Title from "./ui/Title";
 import { getRandomBoard, postSudoku, updateSudoku } from "@api/axios";
+import { DUMMY_SUDOKU } from "../data/Dummy";
 
 const GameActions = () => {
   const {
@@ -11,6 +12,7 @@ const GameActions = () => {
     getCurrentBoardValues,
     selectedBoard,
     handleUpdateList,
+    handleSetBoard,
   } = useContext<GameContextType>(GameContext);
 
   const handleGenerateRandomBoard = async () => {
@@ -57,6 +59,9 @@ const GameActions = () => {
 
         <Button color="primary" onClick={() => handleGenerateRandomBoard()}>
           Generate Random Sudoku
+        </Button>
+        <Button color="primary" onClick={() => handleSetBoard(DUMMY_SUDOKU)}>
+          New Custom Sudoku
         </Button>
       </div>
     </div>
