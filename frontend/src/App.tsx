@@ -14,7 +14,7 @@ function App() {
 
       <Board key={reset ? "resetBoard" : "!resetBoard!"} />
 
-      <Sudokulist key={updateList ? "updateBoard" : "!updateBoard!"} />
+      <Sudokulist key={updateList ? "updateList" : "!updateList!"} />
     </div>
   );
 }
