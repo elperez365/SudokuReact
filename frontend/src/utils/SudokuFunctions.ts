@@ -40,7 +40,15 @@ export const getRandomSudokuBoard9x9 = () => {
       numAdded++;
     }
   }
-  console.log(sudoku);
+  //cicla l'array bidimensionale sudoku e sostituisci ogni valore null con 0
+  for (let i = 0; i < 9; i++) {
+    for (let j = 0; j < 9; j++) {
+      if (sudoku[i][j] === null) {
+        sudoku[i][j] = 0;
+      }
+    }
+  }
+
   return sudoku;
 };
 

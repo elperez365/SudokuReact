@@ -73,22 +73,23 @@ export async function getRandomBoard(): Promise<any> {
   const mockPromise = new Promise<any>((resolve) => {
     const sudoku = getRandomSudokuBoard9x9();
     // cerca il pk più alto e incrementalo di 1
+
     const newPK =
       DUMMY_SUDOKU_LIST.sudoku_grids.reduce((acc, sudoku) => {
         return acc > sudoku.pk ? acc : sudoku.pk;
       }, 0) + 1;
+
+    const isValid = isSudokuValid(sudoku);
     DUMMY_SUDOKU_LIST.sudoku_grids.push({
       pk: newPK,
       sudoku_grid: sudoku,
-      is_valid_solution: false,
+      is_valid_solution: isValid,
     });
 
     setTimeout(() => {
       resolve({ message: "ok" });
     }, 1000);
   });
-
-  console.log(DUMMY_SUDOKU_LIST);
 
   return mockPromise;
 }
