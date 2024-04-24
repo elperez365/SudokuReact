@@ -63,7 +63,7 @@ export const DUMMY_SUDOKU_LIST: SudokuList = {
         [5, 1, 7, 2, 8, 4, 0, 9, 3],
         [9, 0, 6, 5, 1, 3, 4, 0, 7],
       ],
-      is_valid_solution: true,
+      is_valid_solution: false,
     },
   ],
 };
