@@ -29,7 +29,9 @@ const Sudokulist: React.FC<SudokuListProps> = () => {
       const boardindex = sudokuList?.findIndex(
         (sudoku: Sudoku) => sudoku?.pk === selectedBoard?.pk
       );
-      boardindex && handleSetBoard(sudokuList[boardindex]);
+      setTimeout(() => {
+        handleSetBoard(sudokuList[boardindex]);
+      }, 200);
     }
   }, [sudokuList]);
 
