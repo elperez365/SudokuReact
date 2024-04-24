@@ -1,4 +1,4 @@
-import axios from "axios";
+// import axios from "axios";
 import { DUMMY_SUDOKU_LIST } from "../data/Dummy";
 import { Sudoku, SudokuList } from "../types/Sudoku";
 import {
@@ -6,7 +6,7 @@ import {
   getRandomSudokuBoard9x9,
   isSudokuValid,
 } from "../utils/SudokuFunctions";
-const baseURL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
+// const baseURL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 
 export async function postSudoku(sudokuGrid: number[][]) {
   // const response = await axios.post<{

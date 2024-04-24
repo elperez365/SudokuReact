@@ -1,4 +1,4 @@
-const duplicateExist = (sudoku, row, col) => {
+const duplicateExist = (sudoku: number[][], row: number, col: number) => {
   let number = sudoku[row][col];
   for (let i = 0; i < 9; i++) {
     if (sudoku[row][i] === number && i !== col) {
@@ -44,7 +44,7 @@ export const getRandomSudokuBoard9x9 = () => {
   return sudoku;
 };
 
-export const isSudokuValid = (sudoku) => {
+export const isSudokuValid = (sudoku: number[][]) => {
   for (let i = 0; i < 9; i++) {
     for (let j = 0; j < 9; j++) {
       if (sudoku[i][j] === null) {
