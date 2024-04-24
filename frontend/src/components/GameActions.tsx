@@ -5,6 +5,7 @@ import Button from "./ui/Button";
 import Title from "./ui/Title";
 import { getRandomBoard, postSudoku, updateSudoku } from "@api/axios";
 import { DUMMY_SUDOKU } from "../data/Dummy";
+import { toast } from "react-toastify";
 
 const GameActions = () => {
   const {
@@ -19,6 +20,7 @@ const GameActions = () => {
     try {
       const data = await getRandomBoard();
       data && handleUpdateList();
+      toast.success("Random Sudoku Insert in the list!");
     } catch (error) {
       console.log(error);
     }
@@ -30,6 +32,7 @@ const GameActions = () => {
       try {
         const data = await updateSudoku(selectedBoard.pk, currentBoardValues);
         handleUpdateList();
+        toast.success("Sudoku Updated ");
         console.log(data);
       } catch (error) {
         console.log(error);
@@ -38,6 +41,7 @@ const GameActions = () => {
       try {
         const data = await postSudoku(currentBoardValues);
         handleUpdateList();
+        toast.success("Sudoku Inserted in the list!");
         console.log(data);
       } catch (error) {
         console.log(error);

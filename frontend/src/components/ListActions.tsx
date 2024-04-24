@@ -3,7 +3,7 @@ import Button from "./ui/Button";
 import { GameContextType } from "../types/GameContext";
 import { GameContext } from "../context/GameContext";
 import { getValidSudoku, getClearSudokuList } from "@api/axios";
-
+import { toast } from "react-toastify";
 const ListActions: React.FC<{}> = () => {
   const { handleUpdateList } = useContext<GameContextType>(GameContext);
 
@@ -11,6 +11,7 @@ const ListActions: React.FC<{}> = () => {
     try {
       await getValidSudoku();
       handleUpdateList();
+      toast.success("Valid Sudoku Insert in the list!");
     } catch (error) {
       console.log(error);
     }
@@ -20,6 +21,7 @@ const ListActions: React.FC<{}> = () => {
     try {
       await getClearSudokuList();
       handleUpdateList();
+      toast.success("List Cleared!");
     } catch (error) {
       console.error(error);
     }
