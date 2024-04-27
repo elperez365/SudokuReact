@@ -34,9 +34,15 @@ export async function getSudokuList(): Promise<{ data: SudokuList }> {
   //const response= await axios.get<{ sudoku_grids: SudokuList }>(
   // `${baseURL}/sudoku/get_sudoku_grids/`
   // );
+
+  // prendila dal local storage
+
+  const listToLocalStorage = JSON.parse(
+    window.localStorage.getItem("sudoku") || "{}"
+  );
   const mockPromise = new Promise<{ data: SudokuList }>((resolve) => {
     setTimeout(() => {
-      resolve({ data: DUMMY_SUDOKU_LIST });
+      resolve(listToLocalStorage);
     }, 1000);
   });
 

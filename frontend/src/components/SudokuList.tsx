@@ -19,7 +19,7 @@ const Sudokulist: React.FC<SudokuListProps> = () => {
 
   const { data, loading, error } = useGet(getSudokuList);
 
-  const sudokuList = data?.data.sudoku_grids;
+  const sudokuList = data?.data?.sudoku_grids;
 
   useEffect(() => {
     if (sudokuList?.length > 0 && selectedBoard?.pk === 0) {

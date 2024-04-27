@@ -4,13 +4,23 @@ import { GameContextType } from "../types/GameContext";
 import { GameContext } from "../context/GameContext";
 import { getValidSudoku, getClearSudokuList } from "@api/axios";
 import { toast } from "react-toastify";
+import { DUMMY_SUDOKU_LIST } from "../data/Dummy";
+import useLocalStorage from "../hooks/useLocalStorage";
 const ListActions: React.FC<{}> = () => {
   const { handleUpdateList } = useContext<GameContextType>(GameContext);
+  const { setValue } = useLocalStorage("sudoku", {
+    data: DUMMY_SUDOKU_LIST,
+  });
 
+  const updateLocalStorage = () => {
+    setValue({ data: DUMMY_SUDOKU_LIST });
+  };
   const handleAddValidSudoku = async () => {
     try {
       await getValidSudoku();
+      updateLocalStorage();
       handleUpdateList();
+
       toast.success("Valid Sudoku Insert in the list!");
     } catch (error) {
       console.log(error);
@@ -20,7 +30,9 @@ const ListActions: React.FC<{}> = () => {
   const handleClearList = async () => {
     try {
       await getClearSudokuList();
+      updateLocalStorage();
       handleUpdateList();
+
       toast.success("List Cleared!");
     } catch (error) {
       console.error(error);
